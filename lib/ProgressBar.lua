@@ -1,0 +1,83 @@
+local base = _G
+
+module('ProgressBas')
+mtab = { __index = _M }
+
+local Factory = base.require('Factory')
+
+function new(top, left, width, height)
+  return Factory.create(_M, top, left, width, height)
+end
+
+function construct(self)
+end
+
+
+ProgressBar = {
+  name = "ProgressBar1",
+  location = { x=50, y=50},
+  geometry = {width=100, height=4},
+
+  borderColor = "red",
+  progressColor = "white",
+
+  progress = 0,
+}
+
+function ProgressBar:new(pb, )
+  local pb = pb or {}   -- create object if user does not provide one
+
+  setmetatable(pb, {__index = ProgressBar})
+
+  self.location.x = top
+  self.location.y = left
+  self.geometry.width = width
+  self.geometry.height = height
+
+  return pb
+end
+
+function ProgressBar:draw()
+  -- saving default color
+  local defstrokeCol = getstrokecolor()
+  local deffillCol = getfillcolor()
+  local getfillOpacity = getfillopacity()
+  setstrokecolor(self.borderColor)
+  setfillcolor(self.borderColor)
+  setfillopacity(0.2)
+  -- drawing border
+  polygon({
+    {
+      x=self.location.x,
+      y=self.location.y
+    },{
+      x=self.location.x+self.geometry.width,
+      y=self.location.y
+    },
+    {
+      x=self.location.x+self.geometry.width,
+      y=self.location.y+self.geometry.height
+    },
+    {
+      x=self.location.x,
+      y=self.location.y+self.geometry.height
+    },
+  })
+
+  -- saving colors
+  local defstrokealpha = defstrokeCol.a
+  setstrokecolor(self.progressColor)
+  setfillcolor(self.progressColor)
+
+  -- drawing gauge
+  rectangle(self.location.x+2, self.location.y+2, self.location.x+self.progress-2, self.location.y+self.geometry.height-2)
+  setstrokecolor(defstrokeCol)
+  setfillcolor(deffillCol)
+  setstrokeopacity(defstrokealpha)
+end
+
+
+function ProgressBar:setProgress(progress)
+  self.progress = progress
+  self:draw()
+end

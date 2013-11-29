@@ -1,0 +1,62 @@
+ProgressBar = {
+  name = "ProgressBar1",
+  location = { x=50, y=50},
+  geometry = {width=100, height=4},
+
+  borderColor = "red"
+  progressColor = "#000",
+
+  progress = 0,
+}
+
+function ProgressBar:new(o)
+  o = o or {}   -- create object if user does not provide one
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+function ProgressBar:draw()
+  -- saving default color
+  local defstrokeCol = getstrokecolor()
+  setstrokecolor(self.borderColor)
+  setfillcolor(self.borderColor)
+  setfillalpha(0.2)
+  -- drawing border
+  polygon({
+    {
+      x=self.location.x,
+      y=self.location.y
+    },{
+      x=self.location.x+self.geometry.width,
+      y=self.location.y
+    },
+    {
+      x=self.location.x+self.geometry.width,
+      y=self.location.y+self.geometry.height
+    },
+    {
+      x=self.location.x,
+      y=self.location.y+self.geometry.height
+    },
+  })
+  setstrokecolor(defstrokeCol) -- restore default color
+
+  -- saving colors
+  local defstrokeCol = getstrokecolor()
+  local defillCol = getfillcolor()
+  local defstrokealpha = defstrokeCol.a
+  setstrokecolor(self.progressColor)
+  setfillcolor(self.progressColor)
+  -- drawing gauge
+  rectangle(self.location.x+2, self.location.y+2, self.location.x+self.progress-2, self.location.y+self.geometry.height-2)
+  setstrokecolor(defstrokeCol)
+  setfillcolor(defillCol)
+  setstrokealpha(defstrokealpha)
+end
+
+
+function ProgressBar:setProgress(progress)
+  self.progress = progress
+  self:draw()
+end

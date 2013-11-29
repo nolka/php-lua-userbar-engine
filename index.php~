@@ -1,0 +1,36 @@
+<?
+
+error_reporting(!E_WARNING);
+
+require_once "DrawEngine.php";
+
+
+function handleError($errno, $errstr, $errfile, $errline, array $errcontext)
+{
+    // error was suppressed with the @-operator
+    if (0 === error_reporting()) {
+        return false;
+    }
+
+    throw new Exception($errstr,  $errno);
+}
+
+#set_error_handler('handleError');
+
+try
+{
+  $start = microtime(true);
+
+  $engine = new DrawEngine("script.lua", 400,400, "green");
+
+  $xml = new SimpleXMLElement("http://api.twitter.com/1/statuses/user_timeline.rss?screen_name=nolka4", null, true);
+
+  
+  $engine->render("main", array($xml));
+  $engine->draw->annotation(5,15, "generated in: ".number_format(((microtime(true)-$start)), 3, '.', ' ')." sec");
+  $engine->done();
+}
+catch(Exception $e)
+{
+  echo $e->getMessage();
+}

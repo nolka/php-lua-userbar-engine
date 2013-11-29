@@ -1,0 +1,23 @@
+local base = _G
+
+module('Base')
+mtab = { __index = _M }
+
+local Factory = base.require('Factory')
+
+function new()
+  return Factory.create(_M)
+end
+
+function construct(self)
+  base.print('Base created!')
+  self.field = 'text'
+end
+
+function setField(self, field) -- метод получения значения поля field
+  self.field = field
+end
+
+function getField(self) -- метод установки значения поля field
+  return self.field
+end
