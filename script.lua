@@ -1,39 +1,35 @@
-package.path = package.path..";./lib/?.lua"
+package.path = package.path .. ";./lualib/?.lua"
 
-require "ProgressBar"
+require"Drawable"
+require"ProgressBar"
+require"User"
 
-function main(data)
-    annotation(10, 200, #data.channel.title)
-    for i=1,#data.channel.item do
-      annotation(10, 200+13*i, data.channel.item[i].title)
-    
-    end
+function frame1()
+
     setstrokeantialias(true)
-    line(0,0,50, 450)
-    
-    pb = ProgressBar:new(50, 50, 150, 10)
-    pb:setProgress(55)
+    line(0, 0, 50, 450)
 
---[[
-for x:=0 to 320 do
-  PutPixel(x, Round(sin(x / 50 * pi) * 50) + 100);
-    
-    ]]
+    pb = ProgressBar:new(0, 0, 319, 149)
+    pb:setValue(50);
+
+    local graphics = list_files()
+    for i = 1, #graphics do
+        draw_image(graphics[math.random(#graphics)], math.random(300), math.random(130))
+    end
 
     xc, yc = 150, 150
-    dc, dy = 100, 100
+    dc, dy = 200, 200
     points = {}
-    for i=-1500,1500 do
-      x = xc+i*2
-      y = (math.sin(i)*10)+math.cos(yc)+yc
-       table.insert(points, {x=x, y=y})
+    for i = -1500, 1500 do
+        x = xc + i * 5
+        y = (math.sin(i) * 15) + math.cos(yc) + yc
+        table.insert(points, { x = x, y = y })
     end
-
-    for i,v in ipairs(points) do
-      s, d = v, points[i+1]
-      if d ~= nil then
-	line(s.x, s.y, d.x, d.y)
-      end
-    end
+    
+    pb = ProgressBar:new(54, 70, 200, 10)
+    pb.borderColor = "green"
+    pb.progressColor = "red"
+    pb:setProgress(40)
 
 end
+
