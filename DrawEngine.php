@@ -117,6 +117,7 @@ class DrawEngine
 
         $this->addCallback("create_layer", array($this, 'createLayer'));
         $this->addCallback("clone_layer", array($this, 'cloneLayer'));
+        $this->addCallback("change_layer_delay", array($this, 'changeLayerDelay'));
         $this->addCallback("use_layer", array($this, 'useLayer'));
         $this->addCallback("delete_layer", array($this, 'deleteLayer'));
 
@@ -144,23 +145,31 @@ class DrawEngine
 
     public function cloneLayer($useCreated = false, $sourceLayer = null)
     {
-        die('cloning!');
         if ($sourceLayer === null)
         {
-            die('cloning!');
             $this->layers[] = clone $this->layers[count($this->layers)];
-            $this->layersDelays[] = $this->layersDelays[count($this->layersDelays)]*4;
+            $this->layersDelays[] = $this->layersDelays[count($this->layersDelays)];
             if($useCreated)
                 $this->useLayer(count($this->layers));
         } else
         {
-            die('cloning!');
             $this->layers[] = clone $this->layers[$sourceLayer];
-            $this->layersDelays[] = $this->layersDelays[$sourceLayer]*4;
+            $this->layersDelays[] = $this->layersDelays[$sourceLayer];
             if($useCreated)
                 $this->useLayer($sourceLayer);
         }
         return count($this->layers);
+    }
+
+    public function changeLayerDelay($delay, $id=null)
+    {
+        if ($id === null)
+        {
+            $this->layersDelays[count($this->layersDelays)] = $delay;
+        } else
+        {
+            $this->layersDelays[$id] = $delay;
+        }
     }
 
     protected function bindActiveLayerCallbacks()

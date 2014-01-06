@@ -37,5 +37,5 @@ try
 }
 $engine->debug("generated in: " . number_format(((microtime(true) - $start)), 3, '.', ' ') . " sec");
 
-//$engine->render();
-$engine->renderAnim();
+$engine->render();
+//$engine->renderAnim();
