@@ -60,7 +60,7 @@ class DrawEngine
         $this->magic->newImage($w, $h, $color);
 
         // Создаем базовый слой для рисования
-        $this->createLayer(true, 1);
+        $this->createLayer(true, 50, 1);
 
         $this->assignVar("_width", $w);
         $this->assignVar("_height", $h);
@@ -122,7 +122,7 @@ class DrawEngine
 
     }
 
-    public function createLayer($useCreated = false, $id = null, $delay = 50)
+    public function createLayer($useCreated = false, $delay = 50, $id = null)
     {
         //var_dump(func_get_args());
         if ($id !== null && is_numeric($id))
@@ -137,28 +137,30 @@ class DrawEngine
             $this->layersDelays[] = $delay;
             if ($useCreated)
                 $this->useLayer(count($this->layers));
-            //echo("layer created");
         }
 
         return count($this->layers);
     }
 
-    public function cloneLayer($useCreated = false, $id = null)
+    public function cloneLayer($useCreated = false, $sourceLayer = null)
     {
-        if ($id === null)
+        die('cloning!');
+        if ($sourceLayer === null)
         {
-            $this->layers[] = clone $this->layers[count($this->layers)-1];
-            $this->layersDelays[] = $this->layersDelays[count($this->layersDelays)-1];
+            die('cloning!');
+            $this->layers[] = clone $this->layers[count($this->layers)];
+            $this->layersDelays[] = $this->layersDelays[count($this->layersDelays)]*4;
             if($useCreated)
-                $this->useLayer(count($this->layers)-1);
+                $this->useLayer(count($this->layers));
         } else
         {
-            $this->layers[] = clone $this->layers[$id];
-            $this->layersDelays[] = $this->layersDelays[$id];
+            die('cloning!');
+            $this->layers[] = clone $this->layers[$sourceLayer];
+            $this->layersDelays[] = $this->layersDelays[$sourceLayer]*4;
             if($useCreated)
-                $this->useLayer($id);
+                $this->useLayer($sourceLayer);
         }
-        return count($this->layers)-1;
+        return count($this->layers);
     }
 
     protected function bindActiveLayerCallbacks()

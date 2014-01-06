@@ -33,10 +33,12 @@ function draw()
     setstrokeantialias(true)
 
 
-    -- local lid = clone_layer(true)
 
     for i = 1, _width + 4, 4 do
-        create_layer(nil, true, 10)
+        create_layer(true, 10)
+        if math.fmod(i, 2) == 0 then
+            print(clone_layer(true, 1))
+        end
         line(i - 4, 0, i + 8 - 4, _height)
     end
 
