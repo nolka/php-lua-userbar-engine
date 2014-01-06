@@ -1,7 +1,7 @@
 <?
 
 #error_reporting(E_ALL ^ E_WARNING);
-
+require "lib.php";
 
 require_once "DrawEngine.php";
 
@@ -25,16 +25,17 @@ $engine = null;
 
 try
 {
-    $engine = new \DrawEngine\DrawEngine(file_get_contents("script.lua"), 320, 150, "green");
+    $engine = new \DrawEngine\DrawEngine(file_get_contents("script.lua"), 320, 25, "white");
     $engine->registerMethods();
     $engine->loadPlugins();
-    $engine->run("frame1", array());
+    $engine->run("draw", array());
 } catch (Exception $e)
 {
     echo $e->getMessage();
     echo "<br />" . $e->getFile() . ":" . $e->getLine();
     return 1;
 }
-$engine->debug("generated in: ".number_format(((microtime(true)-$start)), 3, '.', ' ')." sec");
+$engine->debug("generated in: " . number_format(((microtime(true) - $start)), 3, '.', ' ') . " sec");
 
-$engine->render();
+//$engine->render();
+$engine->renderAnim();

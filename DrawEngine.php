@@ -4,13 +4,29 @@ namespace DrawEngine;
 
 class DrawEngine
 {
-
+    /**
+     * @var \Lua
+     */
     protected $lua = null;
     /**
-     * @var null|XImagickDraw
+     * @var XImagickDraw[]
      */
-    public $draw = null;
+    public $layers = [];
+    /**
+     * @var int[]
+     */
+    public $layersDelays = [];
+    /**
+     * @var int
+     */
+    public $activeLayer = 1;
+    /**
+     * @var \Imagick|null
+     */
     protected $magic = null;
+    /**
+     * @var array
+     */
     protected $dimensions = array(320, 100);
 
     /**
@@ -18,19 +34,38 @@ class DrawEngine
      */
     protected static $instance = null;
 
+    /**
+     * @var array
+     */
     protected $plugins = [];
 
+    /**
+     * @var array
+     */
     public $dbgMessages = [];
+
+    protected $width;
+    protected $height;
 
     public function __construct($startupScript, $w, $h, $color)
     {
+        $this->width = $w;
+        $this->height = $h;
+
         $this->lua = new \Lua();
 
         $this->lua->eval($startupScript);
 
         $this->magic = new \Imagick();
         $this->magic->newImage($w, $h, $color);
-        $this->draw = new XImagickDraw();
+
+        // Создаем базовый слой для рисования
+        $this->createLayer(true, 1);
+
+        $this->assignVar("_width", $w);
+        $this->assignVar("_height", $h);
+
+
         self::$instance = $this;
     }
 
@@ -54,37 +89,111 @@ class DrawEngine
 
     public function registerMethods($optionalMethodsMap = null)
     {
-        $imagickMethods = get_class_methods(get_class($this->draw));
+        $this->lua->registerCallback("newcolor", function ($name)
+        {
+            return new ImagickPixel($name);
+        });
+        $this->lua->registerCallback("print", function ($text)
+        {
+            $message = array();
+            foreach (func_get_args() as $arg)
+            {
+                $message[] = $arg;
+            }
+            $this->dbgMessages[] = "print: " . implode(", ", $message);
+        });
+
+        $this->lua->registerCallback("array", function ()
+        {
+            return array(func_get_args());
+        });
+
+        $this->lua->registerCallback("dump", function ($data)
+        {
+            var_dump($data);
+            $str = ob_get_clean();
+            $this->dbgMessages[] = "dump: " . $str;
+        });
+
+        $this->addCallback("create_layer", array($this, 'createLayer'));
+        $this->addCallback("clone_layer", array($this, 'cloneLayer'));
+        $this->addCallback("use_layer", array($this, 'useLayer'));
+        $this->addCallback("delete_layer", array($this, 'deleteLayer'));
+
+    }
+
+    public function createLayer($useCreated = false, $id = null, $delay = 50)
+    {
+        //var_dump(func_get_args());
+        if ($id !== null && is_numeric($id))
+        {
+            $this->layers[$id] = new XImagickDraw($this);
+            $this->layersDelays[$id] = $delay;
+            if ($useCreated)
+                $this->useLayer($id);
+        } else
+        {
+            $this->layers[] = new XImagickDraw($this);
+            $this->layersDelays[] = $delay;
+            if ($useCreated)
+                $this->useLayer(count($this->layers));
+            //echo("layer created");
+        }
+
+        return count($this->layers);
+    }
+
+    public function cloneLayer($useCreated = false, $id = null)
+    {
+        if ($id === null)
+        {
+            $this->layers[] = clone $this->layers[count($this->layers)-1];
+            $this->layersDelays[] = $this->layersDelays[count($this->layersDelays)-1];
+            if($useCreated)
+                $this->useLayer(count($this->layers)-1);
+        } else
+        {
+            $this->layers[] = clone $this->layers[$id];
+            $this->layersDelays[] = $this->layersDelays[$id];
+            if($useCreated)
+                $this->useLayer($id);
+        }
+        return count($this->layers)-1;
+    }
+
+    protected function bindActiveLayerCallbacks()
+    {
+        $imagickMethods = get_class_methods(get_class($this->layers[$this->activeLayer]));
 
         $disabledMethods = array();
 
         #var_dump($imagickMethods);
         foreach ($imagickMethods as $method)
         {
-            $this->lua->registerCallback($method, array($this->draw, $method));
+            $this->lua->registerCallback($method, array($this->layers[$this->activeLayer], $method));
         }
 
         $this->lua->registerCallback("getstrokecolor", function ()
         {
-            return DrawEngine::object()->draw->getStrokeColor()->getColor();
+            return $this->layers[$this->activeLayer]->getStrokeColor()->getColor();
         });
         $this->lua->registerCallback("getfillcolor", function ()
         {
-            return DrawEngine::object()->draw->getFillColor()->getColor();
+            return $this->layers[$this->activeLayer]->getFillColor()->getColor();
         });
 
         $this->lua->registerCallback("setstrokecolor", function ($value)
             {
                 if (is_string($value))
                 {
-                    DrawEngine::object()->draw->setStrokeColor($value);
+                    $this->layers[$this->activeLayer]->setStrokeColor($value);
                 }
                 if (is_array($value))
                 {
                     $r = $value['r'];
                     $g = $value['g'];
                     $b = $value['b'];
-                    DrawEngine::object()->draw->setStrokeColor('#' . DrawEngine::object()->rgbToHex($r, $g, $b));
+                    $this->layers[$this->activeLayer]->setStrokeColor('#' . $this->rgbToHex($r, $g, $b));
                 }
             }
         );
@@ -93,43 +202,38 @@ class DrawEngine
             {
                 if (is_string($value))
                 {
-                    DrawEngine::object()->draw->setFillColor($value);
+                    $this->layers[$this->activeLayer]->setFillColor($value);
                 }
                 if (is_array($value))
                 {
                     $r = $value['r'];
                     $g = $value['g'];
                     $b = $value['b'];
-                    DrawEngine::object()->draw->setFillColor('#' . DrawEngine::object()->rgbToHex($r, $g, $b));
+                    $this->layers[$this->activeLayer]->setFillColor('#' . $this->rgbToHex($r, $g, $b));
                 }
             }
         );
+    }
 
-        $this->lua->registerCallback("newcolor", function ($name)
-        {
-            return new ImagickPixel($name);
-        });
-        $this->lua->registerCallback("print", function ($text)
-        {
-            $message = array();
-            foreach(func_get_args() as $arg)
-            {
-               $message[] = $arg;
-            }
-            DrawEngine::object()->dbgMessages[] = "print: ".implode(", ", $message);
-        });
+    public function useLayer($id)
+    {
+        //echo("set active layer to ".$id);
+        $this->activeLayer = $id;
+        $this->bindActiveLayerCallbacks();
+        $this->assignVar("_activeLayer", $id);
+    }
 
-        $this->lua->registerCallback("array", function ()
+    public function deleteLayer($id)
+    {
+        if (isset($this->layers[$id]))
         {
-            return array(func_get_args());
-        });
-        $this->lua->registerCallback("dump", function ($data)
-        {
-            var_dump($data);
-            $str = ob_get_clean();
-            DrawEngine::object()->dbgMessages[] = "dump: ".$str;
-        });
-
+            unset($this->layers[$id]);
+            if (isset($this->layersDelays[$id]))
+                unset($this->layersDelays[$id]);
+            $this->useLayer(count($this->layers));
+            return true;
+        }
+        return false;
     }
 
     public function loadPlugins()
@@ -137,12 +241,12 @@ class DrawEngine
         require_once "IPlugin.php";
         require_once "Plugin.php";
 
-        foreach(glob(__DIR__."/plugins/*.php") as $pluginFile)
+        foreach (glob(__DIR__ . "/plugins/*.php") as $pluginFile)
         {
             require_once $pluginFile;
             preg_match("#[^\/]+?$#", $pluginFile, $match);
             list($class_name, $ext) = explode(".", $match[0]);
-            $class_name = '\DrawEngine\Plugins\\'.$class_name;
+            $class_name = '\DrawEngine\Plugins\\' . $class_name;
             $klass = new $class_name($this);
             $klass->init();
             $klass->load();
@@ -150,9 +254,9 @@ class DrawEngine
         }
     }
 
-    public  function unloadPlugins()
+    public function unloadPlugins()
     {
-        foreach($this->plugins as $name => $instance)
+        foreach ($this->plugins as $name => $instance)
         {
             $instance->unload();
         }
@@ -160,7 +264,7 @@ class DrawEngine
 
     public function registerPlugin($name, $instance)
     {
-    $this->plugins[$name] = $instance;
+        $this->plugins[$name] = $instance;
     }
 
     /**
@@ -169,18 +273,26 @@ class DrawEngine
      */
     public function afterDraw()
     {
-        $this->draw->setfontsize(12);
-        $this->draw->setfontfamily("Ubuntu");
-        $this->draw->setfontweight(100);
-        foreach($this->dbgMessages as $id => $msg)
+        $this->useLayer(1);
+
+        $fontSize = 12;
+        $marginX = 2;
+        $marginY = 2;
+        $fontMetrics = $this->magic->queryFontMetrics($this->layers[$this->activeLayer], "test");
+
+        $this->layers[$this->activeLayer]->setfontsize($fontSize);
+        $this->layers[$this->activeLayer]->setfontfamily("Ubuntu");
+
+        $this->layers[$this->activeLayer]->setfontweight(100);
+        foreach ($this->dbgMessages as $id => $msg)
         {
-            $this->draw->annotation(2, 12*$id+14, $msg);
+            $this->layers[$this->activeLayer]->annotation($marginX, $fontSize * $id + $fontMetrics["characterHeight"] + $marginY, $msg);
         }
     }
 
     public function debug($message)
     {
-        $this->dbgMessages[] = "debug: ".$message;
+        $this->dbgMessages[] = "debug: " . $message;
     }
 
     public function rgbToHex($r, $g, $b)
@@ -206,10 +318,48 @@ class DrawEngine
     public function render()
     {
         $this->afterDraw();
-        $this->magic->drawImage($this->draw);
+        foreach ($this->layers as $id => $layer)
+        {
+            if ($layer instanceof XImagickDraw)
+            {
+                $this->magic->drawImage($layer);
+            }
+        }
         $this->magic->setImageFormat("png");
         header('Content-Type: image/png');
         echo $this->magic;
+    }
+
+    public function renderAnim()
+    {
+        $this->afterDraw();
+        $this->magic = new \Imagick();
+        foreach ($this->layers as $id => $layer)
+        {
+            if ($layer instanceof XImagickDraw)
+            {
+                if ($id == 1)
+                {
+                    $this->magic->newImage($this->width, $this->height, "transparent");
+                    $this->magic->drawImage($layer);
+                    $this->magic->setimageDelay($this->layersDelays[$id]);
+                    $this->magic->setImageFormat("gif");
+                } else
+                {
+                    $frame = new \Imagick();
+                    $frame->newImage($this->width, $this->height, "transparent");
+                    $frame->drawImage($layer);
+                    $frame->setimagedelay($this->layersDelays[$id]);
+                    $frame->setImageFormat("gif");
+
+                    $this->magic->addImage($frame);
+                }
+            }
+        }
+        //$this->magic = $this->magic->deconstructImages();
+        $this->magic->writeimages("/tmp/gif.gif", true);
+        header('Content-Type: image/gif');
+        echo $this->magic->getImagesBlob();
     }
 
     public function run($func, $args = null)

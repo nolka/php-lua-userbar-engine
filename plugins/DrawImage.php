@@ -21,7 +21,7 @@ class DrawImage extends \DrawEngine\Plugins\Plugin
                 $width = $geom["width"];
             if(!$height)
                 $height = $geom["height"];
-            \DrawEngine\DrawEngine::object()->draw->composite(\Imagick::COMPOSITE_OVER, $top, $left, $width, $height, $image);
+            \DrawEngine\DrawEngine::object()->layers[$this->engine->activeLayer]->composite(\Imagick::COMPOSITE_OVER, $top, $left, $width, $height, $image);
         });
     }
 } 
