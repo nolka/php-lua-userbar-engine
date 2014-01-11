@@ -13,6 +13,10 @@ class DrawEngine
      */
     public $layers = [];
     /**
+     * @var int
+     */
+    protected $layersCount = 0;
+    /**
      * @var int[]
      */
     public $layersDelays = [];
@@ -43,6 +47,8 @@ class DrawEngine
      * @var array
      */
     public $dbgMessages = [];
+
+    public $debugMode = false;
 
     protected $width;
     protected $height;
@@ -77,9 +83,24 @@ class DrawEngine
         return self::$instance;
     }
 
-    public function addCallback($callback, $params)
+    public function addCallback($func_name, $callback = null)
     {
-        $this->lua->registerCallback($callback, $params);
+        if (is_array($func_name))
+        {
+            foreach ($func_name as $func => $cb)
+            {
+                if (is_numeric($func))
+                {
+                    $this->addCallback($cb);
+                } else
+                {
+                    $this->addCallback($func, $cb);
+                }
+            }
+        } elseif ($callback === null)
+            $this->lua->registerCallback($func_name, $func_name);
+        else
+            $this->lua->registerCallback($func_name, $callback);
     }
 
     public function assignVar($name, $value)
@@ -137,31 +158,31 @@ class DrawEngine
             $this->layers[] = new XImagickDraw($this);
             $this->layersDelays[] = $delay;
             if ($useCreated)
-                $this->useLayer(count($this->layers));
+                $this->useLayer(++$this->layersCount);
         }
-
-        return count($this->layers);
+        $this->layersCount = count($this->layers);
+        return $this->layersCount;
     }
 
     public function cloneLayer($useCreated = false, $sourceLayer = null)
     {
         if ($sourceLayer === null)
         {
-            $this->layers[] = clone $this->layers[count($this->layers)];
-            $this->layersDelays[] = $this->layersDelays[count($this->layersDelays)];
-            if($useCreated)
-                $this->useLayer(count($this->layers));
+            $this->layers[] = clone $this->layers[$this->layersCount];
+            $this->layersDelays[] = $this->layersDelays[$this->layersCount];
+            if ($useCreated)
+                $this->useLayer($this->layersCount);
         } else
         {
             $this->layers[] = clone $this->layers[$sourceLayer];
             $this->layersDelays[] = $this->layersDelays[$sourceLayer];
-            if($useCreated)
+            if ($useCreated)
                 $this->useLayer($sourceLayer);
         }
-        return count($this->layers);
+        return ++$this->layersCount;
     }
 
-    public function changeLayerDelay($delay, $id=null)
+    public function changeLayerDelay($delay, $id = null)
     {
         if ($id === null)
         {
@@ -241,10 +262,10 @@ class DrawEngine
             unset($this->layers[$id]);
             if (isset($this->layersDelays[$id]))
                 unset($this->layersDelays[$id]);
-            $this->useLayer(count($this->layers));
-            return true;
+            $this->layersCount = count($this->layers);
+            $this->useLayer($this->layersCount);
         }
-        return false;
+        return $this->layersCount;
     }
 
     public function loadPlugins()
@@ -284,20 +305,22 @@ class DrawEngine
      */
     public function afterDraw()
     {
-        $this->useLayer(1);
-
-        $fontSize = 12;
-        $marginX = 2;
-        $marginY = 2;
-        $fontMetrics = $this->magic->queryFontMetrics($this->layers[$this->activeLayer], "test");
-
-        $this->layers[$this->activeLayer]->setfontsize($fontSize);
-        $this->layers[$this->activeLayer]->setfontfamily("Ubuntu");
-
-        $this->layers[$this->activeLayer]->setfontweight(100);
-        foreach ($this->dbgMessages as $id => $msg)
+        if ($this->debugMode)
         {
-            $this->layers[$this->activeLayer]->annotation($marginX, $fontSize * $id + $fontMetrics["characterHeight"] + $marginY, $msg);
+            $fontSize = 11;
+            $marginX = 2;
+            $marginY = 2;
+            $layer = $this->layers[$this->layersCount];
+            $fontMetrics = $this->magic->queryFontMetrics($layer, "test");
+
+            $layer->setfontsize($fontSize);
+            $layer->setfont("fonts/verdana.ttf");
+            //$layer->setfontweight(900);
+
+            foreach ($this->dbgMessages as $id => $msg)
+            {
+                $layer->annotation($marginX, $fontSize * $id + $fontMetrics["characterHeight"] + $marginY, $msg);
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 Drawable = {}
 _G.classes = {}
-_G.classes.drawableCount = -1
+_G.classes.drawableCount = 0
 
 function Drawable:new(x, y, w, h, drawableName)
     if x == nil then x = 0 end

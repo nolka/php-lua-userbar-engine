@@ -7,6 +7,7 @@ class Sessions extends \DrawEngine\Plugins\Plugin
     {
         $this->engine->addCallback("session_start", "session_start");
         $this->engine->addCallback("session_destroy", "session_destroy");
+        $this->engine->addCallback("session_status", "session_status");
         $this->engine->addCallback("set_session_var", function ($name, $value)
         {
             $_SESSION[$name] = $value;

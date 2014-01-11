@@ -1,0 +1,5 @@
+RewriteEngine On
+
+RewriteRule /?\.htaccess$ - [F,L]
+RewriteRule /?\.lua$ - [F,L]
+RewriteRule /?~$ - [F,L]

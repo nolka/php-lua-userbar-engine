@@ -4,28 +4,75 @@ require"Drawable"
 require"ProgressBar"
 require"Session"
 
+function decline(value, titles)
+    value = math.abs(value)
+    local value1 = value % 10
+    if value > 10 and value < 20 then return titles[3] end
+    if value1 > 1 and value1 < 5 then return titles[2] end
+    if value1 == 1 then return titles[1] end
+    return titles[3]
+end
+
+function draw24dx()
+    --[[
+        $NewYear = gmmktime(0, 0, 0, 1, 1, 2012);
+        $Diff = $NewYear - time(); // разница в секундах
+        $RemDays = (int)floor($Diff / 86400); // целых дней в этой разнице
+        $RemTime = gmdate('H:i:s', $Diff % 86400); // остатки дня в чч:мм:сс
+        echo "До нового года осталось $RemDays дн. и $RemTime"
+    -- ]]
+    ny = gmmktime(22, 0, 0, 12, 30, 2013)
+    diff = time() - ny
+    remdays = math.floor(diff / 86400)
+    remtime = gmdate("H", diff % 86400)
+    radio_usage = {
+        "Пользуюсь рацией уже "
+    }
+    table.insert(radio_usage, remdays)
+    table.insert(radio_usage, decline(remdays, { "день", "дня", "дней" }))
+    table.insert(radio_usage, remtime)
+    table.insert(radio_usage, decline(remtime, { "час", "часа", "часов" }))
+    annotation(4, 20, table.concat(radio_usage, " "))
+end
+
 function draw()
+    --draw24dx()
+    --do return end
 
-    --setstrokeantialias(true)
+    if Request.referer then
+        if re_match("#24dx\\.ru#", Request.referer) then
+            draw24dx()
+        end
+    elseif Query.testmod then
+        if _G[Query.testmod] then
+            _G[Query.testmod]()
+        end
+    else
+        setstrokeantialias(true)
+        if Session.get('count') == nil or Session.get('count') >= 100 then
+            Session.set('count', 0)
+        else
+            Session.set('count', Session.get('count') + 16)
+        end
 
-    pb = ProgressBar:new(54, 10, 200, 10)
-    pb.borderColor = "green"
-    pb.progressColor = "green"
-    pb:setProgress(math.random(100))
+        pb = ProgressBar:new(2, 2, 234, 10)
+        pb.gauge.margin = 2
+        pb.borderColor = "green"
+        pb.progressColor = "green"
+        pb:setProgress(Session.get('count'))
 
-    create_layer(true, 150)
-    setstrokecolor("red")
-    setstrokeantialias(true)
+        create_layer(true)
+        pb = ProgressBar:new(2, 13, 200, 6)
+        pb.borderColor = "red"
+        pb.progressColor = "red"
+        pb:setProgress(-10)
 
-
-    for i = 1, _width + 4, 4 do
-        line(i - 4, 0, i + 8 - 4, _height)
+        --create_layer(true)
     end
+end
 
-    create_layer(true, 150)
-    pb = ProgressBar:new(54, 10, 200, 10)
-    pb.borderColor = "red"
-    pb.progressColor = "red"
-    pb:setProgress(math.random(100))
+
+
+function drawUaz()
 end
 

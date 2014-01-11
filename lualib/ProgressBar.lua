@@ -3,7 +3,14 @@ ProgressBar = Drawable:new()
 ProgressBar.borderColor = "red"
 ProgressBar.progressColor = "white"
 ProgressBar.value = 0
+ProgressBar.stepSize = 1
+ProgressBar.gauge = {
+    margin = 2
+}
 ProgressBar.maxValue = 100
+ProgressBar.borderOpacity = 1
+ProgressBar.backgroundOpacity = 0.2
+ProgressBar.foregroundOpacity = 1
 
 function ProgressBar:draw()
     -- saving default color
@@ -12,7 +19,7 @@ function ProgressBar:draw()
     local getfillOpacity = getfillopacity()
     setstrokecolor(self.borderColor)
     setfillcolor(self.borderColor)
-    setfillopacity(0.2)
+    setfillopacity(self.backgroundOpacity)
     -- drawing border
     polygon({
         {
@@ -37,16 +44,31 @@ function ProgressBar:draw()
     setstrokecolor(self.progressColor)
     setfillcolor(self.progressColor)
 
+    local gaugeWidth = self.location.x + self.gauge.margin --+ (self.value*self.stepSize)
+    if self.value >0 then
+        gaugeWidth = gaugeWidth + (self.value*self.stepSize) - (self.gauge.margin*2)
+    end
+
+
     -- drawing gauge
-    rectangle(self.location.x + 2, self.location.y + 2, self.location.x + self.value - 2, self.location.y + self.size.height - 2)
+    rectangle(self.location.x + self.gauge.margin,
+        self.location.y + self.gauge.margin,
+        gaugeWidth ,
+        self.location.y + self.size.height - self.gauge.margin)
     setstrokecolor(defstrokeCol)
     setfillcolor(deffillCol)
     setstrokeopacity(defstrokealpha)
+
+    --annotation(0, self.location.y+10, self.value)
 end
 
 -- Устанавливает значение прогресс бара в процентах
 function ProgressBar:setProgress(progress)
-    self.value = (self.size.width/100)*progress
+    self.value = self.maxValue*progress/100 --(self.size.width/100)*progress
+    if self.value > self.maxValue then
+        self.value = self.maxValue
+    end
+    self.stepSize = (self.size.width)/100
     self:draw()
 end
 

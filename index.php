@@ -25,7 +25,8 @@ $engine = null;
 
 try
 {
-    $engine = new \DrawEngine\DrawEngine(file_get_contents("script.lua"), 320, 25, "white");
+    $engine = new \DrawEngine\DrawEngine(file_get_contents("script.lua"), 350, 40, "silver");
+    //$engine->debugMode = true;
     $engine->registerMethods();
     $engine->loadPlugins();
     $engine->run("draw", array());
@@ -37,5 +38,11 @@ try
 }
 $engine->debug("generated in: " . number_format(((microtime(true) - $start)), 3, '.', ' ') . " sec");
 
+if(isset($_REQUEST['gif']) && $_REQUEST['gif'])
+{
+$engine->renderAnim();
+}
+else
+{
 $engine->render();
-//$engine->renderAnim();
+}
