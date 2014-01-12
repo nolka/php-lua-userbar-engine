@@ -35,6 +35,9 @@ function draw24dx()
     annotation(4, 20, table.concat(radio_usage, " "))
 end
 
+function drawUaz()
+end
+
 function draw()
     --draw24dx()
     --do return end
@@ -48,6 +51,7 @@ function draw()
             _G[Query.testmod]()
         end
     else
+        load_gif("gifka.gif")
         setstrokeantialias(true)
         if Session.get('count') == nil or Session.get('count') >= 100 then
             Session.set('count', 0)
@@ -67,12 +71,21 @@ function draw()
         pb.progressColor = "red"
         pb:setProgress(-10)
 
+        clone_layer(true)
+
+        pb = ProgressBar:new(50, 15, 60, 16)
+        pb.borderColor = "black"
+        pb.progressColor = "orange"
+        pb:setProgress(50)
+
+        -- motionblurimage(2,2,45)
+
         --create_layer(true)
     end
 end
 
-
-
-function drawUaz()
+function afterDrawLayer(frame)
 end
 
+function afterDraw()
+end

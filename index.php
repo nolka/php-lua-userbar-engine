@@ -34,7 +34,7 @@ try
         die("Userscript was not found!");
 
     $engine = new \DrawEngine\DrawEngine(file_get_contents("users/".$user.".lua"), 350, 40, "silver");
-    //$engine->debugMode = true;
+    $engine->debugMode = true;
     $engine->registerMethods();
     $engine->loadPlugins();
     $engine->run("draw", array());

@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9e1cdb66-ab39-4680-ae5c-12ef50ce6511" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/script.lua" afterPath="$PROJECT_DIR$/users/nolka.lua" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugins/GifProcessing.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DrawEngine.php" afterPath="$PROJECT_DIR$/DrawEngine.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/nolka.lua" afterPath="$PROJECT_DIR$/users/nolka.lua" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="lua.iws" />
@@ -27,10 +29,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="40" selection-start="590" selection-end="590" vertical-scroll-proportion="0.44723618" vertical-offset="213" max-vertical-offset="1020">
+            <state line="35" column="35" selection-start="672" selection-end="672" vertical-scroll-proportion="-18.26087" vertical-offset="105" max-vertical-offset="1020">
               <folding />
             </state>
           </provider>
@@ -39,25 +41,7 @@
       <file leaf-file-name="nolka.lua" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/nolka.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="34" selection-start="34" selection-end="34" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1260">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProgressBar.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lualib/ProgressBar.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="19" selection-start="1310" selection-end="1310" vertical-scroll-proportion="0.0" vertical-offset="202" max-vertical-offset="1260">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Drawable.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lualib/Drawable.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="28" selection-start="58" selection-end="58" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="570">
+            <state line="90" column="0" selection-start="2466" selection-end="2466" vertical-scroll-proportion="0.0" vertical-offset="457" max-vertical-offset="1440">
               <folding />
             </state>
           </provider>
@@ -72,10 +56,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DrawEngine.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DrawEngine.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DrawEngine.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="160" column="34" selection-start="3860" selection-end="3860" vertical-scroll-proportion="0.0" vertical-offset="2074" max-vertical-offset="6435">
+            <state line="154" column="14" selection-start="3567" selection-end="3567" vertical-scroll-proportion="0.31644145" vertical-offset="2029" max-vertical-offset="6720">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GifProcessing.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plugins/GifProcessing.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="43" selection-start="547" selection-end="547" vertical-scroll-proportion="-10.434783" vertical-offset="0" max-vertical-offset="375">
               <folding />
             </state>
           </provider>
@@ -112,11 +105,12 @@
         <option value="$PROJECT_DIR$/plugins/Regex.php" />
         <option value="$PROJECT_DIR$/plugins/DateAndTime.php" />
         <option value="$PROJECT_DIR$/lualib/Drawable.lua" />
-        <option value="$PROJECT_DIR$/DrawEngine.php" />
         <option value="$PROJECT_DIR$/script.lua" />
         <option value="$PROJECT_DIR$/users/script.lua" />
-        <option value="$PROJECT_DIR$/users/nolka.lua" />
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/plugins/GifProcessing.php" />
+        <option value="$PROJECT_DIR$/users/nolka.lua" />
+        <option value="$PROJECT_DIR$/DrawEngine.php" />
       </list>
     </option>
   </component>
@@ -312,7 +306,7 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32953367" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953367" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -353,13 +347,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="6" selection-start="519" selection-end="519" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="795">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/users/nolka.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state line="48" column="11" selection-start="1518" selection-end="1518" vertical-scroll-proportion="0.0" vertical-offset="232" max-vertical-offset="1260">
@@ -594,11 +581,6 @@
         <state line="1" column="91" selection-start="96" selection-end="96" vertical-scroll-proportion="0.015991472" vertical-offset="0" max-vertical-offset="938" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/DrawImage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="61" selection-start="756" selection-end="756" vertical-scroll-proportion="0.37704918" vertical-offset="0" max-vertical-offset="915" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plugins/Sessions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="71" selection-start="337" selection-end="337" vertical-scroll-proportion="-5.869565" vertical-offset="0" max-vertical-offset="405" />
@@ -614,23 +596,9 @@
         <state line="17" column="11" selection-start="406" selection-end="406" vertical-scroll-proportion="-11.086957" vertical-offset="0" max-vertical-offset="375" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lualib/ProgressBar.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="19" selection-start="1310" selection-end="1310" vertical-scroll-proportion="0.0" vertical-offset="202" max-vertical-offset="1260">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plugins/DateAndTime.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="21" selection-start="236" selection-end="236" vertical-scroll-proportion="0.18032786" vertical-offset="0" max-vertical-offset="915" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DrawEngine.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="34" selection-start="3860" selection-end="3860" vertical-scroll-proportion="0.0" vertical-offset="2074" max-vertical-offset="6435">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lualib/Drawable.lua">
@@ -652,19 +620,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lualib/ProgressBar.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="19" selection-start="1310" selection-end="1310" vertical-scroll-proportion="0.5362473" vertical-offset="202" max-vertical-offset="1260">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/DrawImage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="61" selection-start="756" selection-end="756" vertical-scroll-proportion="0.37704918" vertical-offset="0" max-vertical-offset="915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/GifProcessing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="43" selection-start="547" selection-end="547" vertical-scroll-proportion="-10.434783" vertical-offset="0" max-vertical-offset="375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/users/nolka.lua">
       <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="34" selection-start="34" selection-end="34" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1260">
+        <state line="90" column="0" selection-start="2466" selection-end="2466" vertical-scroll-proportion="0.0" vertical-offset="457" max-vertical-offset="1440">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="40" selection-start="590" selection-end="590" vertical-scroll-proportion="0.44723618" vertical-offset="213" max-vertical-offset="1020">
+        <state line="35" column="35" selection-start="672" selection-end="672" vertical-scroll-proportion="-18.26087" vertical-offset="105" max-vertical-offset="1020">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DrawEngine.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="154" column="14" selection-start="3567" selection-end="3567" vertical-scroll-proportion="0.31644145" vertical-offset="2029" max-vertical-offset="6720">
           <folding />
         </state>
       </provider>

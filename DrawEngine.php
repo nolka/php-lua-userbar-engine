@@ -52,11 +52,13 @@ class DrawEngine
 
     protected $width;
     protected $height;
+    protected $color;
 
     public function __construct($startupScript, $w, $h, $color)
     {
         $this->width = $w;
         $this->height = $h;
+        $this->color = $color;
 
         $this->lua = new \Lua();
 
@@ -110,11 +112,11 @@ class DrawEngine
 
     public function registerMethods($optionalMethodsMap = null)
     {
-        $this->lua->registerCallback("newcolor", function ($name)
+        $this->addCallback("newcolor", function ($name)
         {
             return new ImagickPixel($name);
         });
-        $this->lua->registerCallback("print", function ($text)
+        $this->addCallback("print", function ($text)
         {
             $message = array();
             foreach (func_get_args() as $arg)
@@ -124,12 +126,12 @@ class DrawEngine
             $this->dbgMessages[] = "print: " . implode(", ", $message);
         });
 
-        $this->lua->registerCallback("array", function ()
+        $this->addCallback("array", function ()
         {
             return array(func_get_args());
         });
 
-        $this->lua->registerCallback("dump", function ($data)
+        $this->addCallback("dump", function ($data)
         {
             var_dump($data);
             $str = ob_get_clean();
@@ -149,6 +151,8 @@ class DrawEngine
         //var_dump(func_get_args());
         if ($id !== null && is_numeric($id))
         {
+            $imagick = new \Imagick();
+            //$imagick->newimage($this->width, $this->height, "transparent")
             $this->layers[$id] = new XImagickDraw($this);
             $this->layersDelays[$id] = $delay;
             if ($useCreated)
@@ -164,22 +168,30 @@ class DrawEngine
         return $this->layersCount;
     }
 
+    public function addLayer(\Imagick $layer)
+    {
+        $this->layers[] = $layer;
+        //$this->layersDelays[] = $layer->del
+    }
+
     public function cloneLayer($useCreated = false, $sourceLayer = null)
     {
         if ($sourceLayer === null)
         {
             $this->layers[] = clone $this->layers[$this->layersCount];
             $this->layersDelays[] = $this->layersDelays[$this->layersCount];
+            $this->layersCount++;
             if ($useCreated)
                 $this->useLayer($this->layersCount);
         } else
         {
             $this->layers[] = clone $this->layers[$sourceLayer];
             $this->layersDelays[] = $this->layersDelays[$sourceLayer];
+            $this->layersCount++;
             if ($useCreated)
                 $this->useLayer($sourceLayer);
         }
-        return ++$this->layersCount;
+        return $this->layersCount;
     }
 
     public function changeLayerDelay($delay, $id = null)
@@ -202,19 +214,19 @@ class DrawEngine
         #var_dump($imagickMethods);
         foreach ($imagickMethods as $method)
         {
-            $this->lua->registerCallback($method, array($this->layers[$this->activeLayer], $method));
+            $this->addCallback($method, array($this->layers[$this->activeLayer], $method));
         }
 
-        $this->lua->registerCallback("getstrokecolor", function ()
+        $this->addCallback("getstrokecolor", function ()
         {
             return $this->layers[$this->activeLayer]->getStrokeColor()->getColor();
         });
-        $this->lua->registerCallback("getfillcolor", function ()
+        $this->addCallback("getfillcolor", function ()
         {
             return $this->layers[$this->activeLayer]->getFillColor()->getColor();
         });
 
-        $this->lua->registerCallback("setstrokecolor", function ($value)
+        $this->addCallback("setstrokecolor", function ($value)
             {
                 if (is_string($value))
                 {
@@ -230,7 +242,7 @@ class DrawEngine
             }
         );
 
-        $this->lua->registerCallback("setfillcolor", function ($value)
+        $this->addCallback("setfillcolor", function ($value)
             {
                 if (is_string($value))
                 {
@@ -329,6 +341,13 @@ class DrawEngine
         $this->dbgMessages[] = "debug: " . $message;
     }
 
+    /**
+     * Выполняет конверсию цвета из трех компонентов RGB в строковое представление цвета в виде HEX строки
+     * @param $r
+     * @param $g
+     * @param $b
+     * @return null|string
+     */
     public function rgbToHex($r, $g, $b)
     {
         $s = '';
@@ -343,10 +362,9 @@ class DrawEngine
                 $h .= substr($x, $s[$i] >> 4, 1) . substr($x, $s[$i] & 15, 1);
             }
             return $h;
-        } else
-            return null;
+        }
 
-        return false;
+        return null;
     }
 
     public function render()
@@ -354,7 +372,7 @@ class DrawEngine
         $this->afterDraw();
         foreach ($this->layers as $id => $layer)
         {
-            if ($layer instanceof XImagickDraw)
+            if ($layer instanceof \ImagickDraw)
             {
                 $this->magic->drawImage($layer);
             }
@@ -370,7 +388,7 @@ class DrawEngine
         $this->magic = new \Imagick();
         foreach ($this->layers as $id => $layer)
         {
-            if ($layer instanceof XImagickDraw)
+            if ($layer instanceof \ImagickDraw)
             {
                 if ($id == 1)
                 {
@@ -390,6 +408,7 @@ class DrawEngine
                 }
             }
         }
+        //$this->magic->optimizeimagelayers();
         //$this->magic = $this->magic->deconstructImages();
         $this->magic->writeimages("/tmp/gif.gif", true);
         header('Content-Type: image/gif');
