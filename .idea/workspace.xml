@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9e1cdb66-ab39-4680-ae5c-12ef50ce6511" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugins/GifProcessing.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DrawEngine.php" afterPath="$PROJECT_DIR$/DrawEngine.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/nolka.lua" afterPath="$PROJECT_DIR$/users/nolka.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fonts/.keep" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/luac.out" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pic.jpg" afterPath="" />
     </list>
     <ignored path="lua.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,7 +31,7 @@
       <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="35" selection-start="672" selection-end="672" vertical-scroll-proportion="-18.26087" vertical-offset="105" max-vertical-offset="1020">
+            <state line="35" column="35" selection-start="672" selection-end="672" vertical-scroll-proportion="-8.571428" vertical-offset="105" max-vertical-offset="1020">
               <folding />
             </state>
           </provider>
@@ -41,7 +40,7 @@
       <file leaf-file-name="nolka.lua" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/nolka.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="90" column="0" selection-start="2466" selection-end="2466" vertical-scroll-proportion="0.0" vertical-offset="457" max-vertical-offset="1440">
+            <state line="90" column="0" selection-start="2466" selection-end="2466" vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="1440">
               <folding />
             </state>
           </provider>
@@ -56,10 +55,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DrawEngine.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DrawEngine.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DrawEngine.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="154" column="14" selection-start="3567" selection-end="3567" vertical-scroll-proportion="0.31644145" vertical-offset="2029" max-vertical-offset="6720">
+            <state line="154" column="14" selection-start="3567" selection-end="3567" vertical-scroll-proportion="-5.734694" vertical-offset="2029" max-vertical-offset="6720">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="8" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".keep" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/fonts/.keep">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="968">
               <folding />
             </state>
           </provider>
@@ -68,7 +85,7 @@
       <file leaf-file-name="GifProcessing.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/plugins/GifProcessing.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="43" selection-start="547" selection-end="547" vertical-scroll-proportion="-10.434783" vertical-offset="0" max-vertical-offset="375">
+            <state line="16" column="43" selection-start="547" selection-end="547" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="375">
               <folding />
             </state>
           </provider>
@@ -111,15 +128,16 @@
         <option value="$PROJECT_DIR$/plugins/GifProcessing.php" />
         <option value="$PROJECT_DIR$/users/nolka.lua" />
         <option value="$PROJECT_DIR$/DrawEngine.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="33" />
+    <option name="x" value="31" />
     <option name="y" value="-5" />
-    <option name="width" value="1651" />
-    <option name="height" value="1059" />
+    <option name="width" value="1893" />
+    <option name="height" value="1089" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -147,7 +165,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -162,7 +179,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lua" />
+              <option name="myItemId" value="phplua" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -172,30 +189,17 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lua" />
+              <option name="myItemId" value="phplua" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lua" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lua" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
+              <option name="myItemId" value="fonts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -301,33 +305,33 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="33" y="-5" width="1651" height="1059" extended-state="6" />
-    <editor active="true" />
+    <frame x="31" y="-5" width="1893" height="1089" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953367" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47357512" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10468655" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15809019" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47357512" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953367" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
-    <option name="RECENTLY_FILTERED_USERS">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
       <collection />
     </option>
   </component>
@@ -347,27 +351,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/users/nolka.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="11" selection-start="1518" selection-end="1518" vertical-scroll-proportion="0.0" vertical-offset="232" max-vertical-offset="1260">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lualib/ProgressBar.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="19" selection-start="1310" selection-end="1310" vertical-scroll-proportion="0.0" vertical-offset="202" max-vertical-offset="1260">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lualib/Drawable.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="28" selection-start="58" selection-end="58" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="570">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plugins/RequestInfo.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="45" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="420">
@@ -636,31 +619,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/plugins/GifProcessing.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="43" selection-start="547" selection-end="547" vertical-scroll-proportion="-10.434783" vertical-offset="0" max-vertical-offset="375">
+        <state line="16" column="43" selection-start="547" selection-end="547" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="375">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/users/nolka.lua">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="90" column="0" selection-start="2466" selection-end="2466" vertical-scroll-proportion="0.0" vertical-offset="457" max-vertical-offset="1440">
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="35" selection-start="672" selection-end="672" vertical-scroll-proportion="-18.26087" vertical-offset="105" max-vertical-offset="1020">
+        <state line="35" column="35" selection-start="672" selection-end="672" vertical-scroll-proportion="-8.571428" vertical-offset="105" max-vertical-offset="1020">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DrawEngine.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="14" selection-start="3567" selection-end="3567" vertical-scroll-proportion="0.31644145" vertical-offset="2029" max-vertical-offset="6720">
+        <state line="154" column="14" selection-start="3567" selection-end="3567" vertical-scroll-proportion="-5.734694" vertical-offset="2029" max-vertical-offset="6720">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="8" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gfx/calculator_link.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fonts/.keep">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="968">
           <folding />
         </state>
       </provider>
