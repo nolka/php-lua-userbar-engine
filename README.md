@@ -6,10 +6,10 @@ It comes with buit-in plugin system.
 
 This generator works simple:
 
-1 - Create userbar engine
-2 - Write userbar script in lua. For example you can see file **nobody.lua**, located in **users** folder
-3 - Navigate to your web browser to index.php
-4 - Enjou!
+* Create userbar engine
+* Write userbar script in lua. For example you can see file **nobody.lua**, located in **users** folder
+* Navigate to your web browser to index.php
+* Enjou!
 
 Plans
 ======================
